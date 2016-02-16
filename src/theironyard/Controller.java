@@ -29,7 +29,9 @@ public class Controller implements Initializable {
     }
 
     public void addContact() {
-        contacts.add(new Contact(textName.getText(), textPhone.getText(), textEmail.getText()));
+        if (!textName.getText().isEmpty() && !textPhone.getText().isEmpty() && !textEmail.getText().isEmpty()) {
+            contacts.add(new Contact(textName.getText(), textPhone.getText(), textEmail.getText()));
+        }
         textName.setText("");
         textPhone.setText("");
         textEmail.setText("");
