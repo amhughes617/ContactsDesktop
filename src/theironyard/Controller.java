@@ -79,10 +79,23 @@ public class Controller implements Initializable {
     }
 }
 
-
+//      Below is working json version of readFile()
 //    public ObservableList<Contact> readFile() throws FileNotFoundException {
-//        File f = new File("contacts.txt");
+//        File f = new File("contacts.json");
 //        Scanner s = new Scanner(f);
+//        s.useDelimiter("\\Z");
+//        String contents = s.next();
+//        JsonParser p = new JsonParser(f);
+//        ArrayList<HashMap<String, String>> list = p.parse(contents, ArrayList<>());
+//        ObservableList tempContacts = FXCollections.observableArrayList();
+//        for (HashMap<String, String> map : list) {
+//            tempContacts.add(new Contact(map.get("name"), map.get("phone"), map.get("email")));
+//        }
+//        return tempContacts;
+//
+//
+//
+//
 //        ArrayList<String> contactsStr = new ArrayList<>();
 //        while (s.hasNext()) {
 //            String line = s.nextLine();
