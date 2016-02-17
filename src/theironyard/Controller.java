@@ -35,8 +35,7 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             contacts = readFile();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
         }
         list.setItems(contacts);
@@ -59,34 +58,39 @@ public class Controller implements Initializable {
     }
 
     public void writeFile(ObservableList<Contact> contacts) throws IOException {
-        File f = new File("contacts.txt");
+        File f = new File("contacts.csv");
         FileWriter fw = new FileWriter(f);
         ArrayList<Contact> listS = new ArrayList<>(contacts);
-        ArrayList<String> contactsStr = new ArrayList<>();
-        for (int i = 0; i < listS.size(); i++) {
-            contactsStr.add(listS.get(i).getName());
-            contactsStr.add(listS.get(i).getPhone());
-            contactsStr.add(listS.get(i).getEmail());
-        }
-        for (String info : contactsStr) {
-            fw.append(info + "\n");
+        for (Contact contact : listS) {
+            fw.append(String.format("%s,%s,%s\n", contact.name, contact.phone, contact.email));
         }
         fw.close();
     }
 
     public ObservableList<Contact> readFile() throws FileNotFoundException {
-        File f = new File("contacts.txt");
+        File f = new File("contacts.csv");
         Scanner s = new Scanner(f);
-        ArrayList<String> contactsStr = new ArrayList<>();
-        while (s.hasNext()) {
-            String line = s.nextLine();
-            contactsStr.add(line);
-        }
         ArrayList<Contact> tempContacts = new ArrayList<>();
-        for (int i = 0; i < contactsStr.size(); i+=3) {
-            tempContacts.add(new Contact(contactsStr.get(i), contactsStr.get(i+1), contactsStr.get(i+2)));
+        while (s.hasNext()) {
+            String[] columns = s.nextLine().split(",");
+            tempContacts.add(new Contact(columns[0], columns[1], columns[2]));
         }
         return FXCollections.observableArrayList(tempContacts);
     }
-
 }
+
+
+//    public ObservableList<Contact> readFile() throws FileNotFoundException {
+//        File f = new File("contacts.txt");
+//        Scanner s = new Scanner(f);
+//        ArrayList<String> contactsStr = new ArrayList<>();
+//        while (s.hasNext()) {
+//            String line = s.nextLine();
+//            contactsStr.add(line);
+//        }
+//        ArrayList<Contact> tempContacts = new ArrayList<>();
+//        for (int i = 0; i < contactsStr.size(); i+=3) {
+//            tempContacts.add(new Contact(contactsStr.get(i), contactsStr.get(i+1), contactsStr.get(i+2)));
+//        }
+//        return FXCollections.observableArrayList(tempContacts);
+//    }
